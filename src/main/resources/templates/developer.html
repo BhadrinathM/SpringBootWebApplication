@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Developer Site Demo Project</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar"
+	data-offset="50">
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#home">Logo</a>
+			</div>
+		</div>
+	</nav>
+
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		</ol>
+
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner" >
+			<div class="item active">
+				<img src="../static/img//img/commncoord.png"
+					th:src="@{/img/commncoord.png}" alt="DevelopmentTeam"></img>
+				<div class="carousel-caption">
+					<h3>Development Team</h3>
+					<p>Please create your entry or check your entry in developer
+						list.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#developer">Developer
+					info</a></li>
+		</ul>
+		<div class="page-header" id="banner">
+			<div class="row">
+				<div class="col-lg-8 col-md-7 col-sm-6">
+					<form class="form-horizontal"
+						th:action="@{/developer/{id}/skills(id=${developer.id})}"
+						method="post" enctype="multipart/form-data">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Name</label>
+								<div class="col-lg-6">
+									<input type="text" class="form-control" disabled="disabled"
+										th:value="${developer.firstName + ' ' + developer.lastName}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Email</label>
+								<div class="col-lg-6">
+									<input type="text" class="form-control" disabled="disabled"
+										th:value="${developer.email}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Skills</label>
+								<div class="col-lg-10">
+									<div th:each="skill : ${developer.skills}">
+										<span th:text="${skill.label}"></span> - <span
+											th:text="${skill.description}"></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-6 col-lg-offset-2">
+									<div class="input-group">
+										<select name="skillId" class="form-control">
+											<option th:each="skill : ${skills}" th:value="${skill.id}"
+												th:text="${skill.description}">Skill</option>
+										</select> <span class="input-group-btn">
+											<button type="submit" class="btn btn-default">Add
+												skill</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1 col-md-offset-2">
+					<form action="#" th:action="@{/}">
+						<button type="submit" class="btn btn-primary">Home Button</button>
+					</form>
+				</div>
+				<div class="col-md-2 col-md-offset-1">
+					<form action="#" th:action="@{/developers}">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
